@@ -10,15 +10,11 @@ public class SmartParkingBoy extends ParkingBoy {
     }
 
     @Override
-    public ParkTicket park(Car car) {
-
+    protected ParkingLot findParkingLot() {
         Optional<ParkingLot> maxVacancyParkingLot = parkingLots.stream()
                 .max((o1, o2) -> o1.getVacancy().compareTo(o2.getVacancy()));
-        if(maxVacancyParkingLot.get().isFull()) {
-            throw new ParkingLotFullException();
-        }
 
-        return maxVacancyParkingLot.get().park(car);
+        return maxVacancyParkingLot.get();
     }
 
 }

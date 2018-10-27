@@ -30,21 +30,31 @@ public class ParkingBoy {
     }
 
     public ParkTicket park(Car car) {
-        ParkTicket parkTicket = null;
+        ParkingLot parkingLot = findParkingLot();
+
+        checkParkingLotFull(parkingLot);
+
+        return parkingLot.park(car);
+    }
+
+    private void checkParkingLotFull(ParkingLot parkingLot) {
+        if(parkingLot == null) {
+            throw new ParkingLotFullException();
+        }
+    }
+
+    protected ParkingLot findParkingLot() {
+        ParkingLot resultParkingLot = null;
         for (ParkingLot parkingLot : parkingLots) {
             Boolean isFull = parkingLot.isFull();
             if(isFull) {
                 continue;
             }
-            parkTicket = parkingLot.park(car);
-            return parkTicket;
+            resultParkingLot = parkingLot;
+            break;
         }
 
-        if(parkTicket == null) {
-            throw new ParkingLotFullException();
-        }
-
-        return null;
+        return resultParkingLot;
     }
 
     public Car pickUp(ParkTicket parkTicket) {
