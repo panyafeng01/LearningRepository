@@ -57,13 +57,13 @@ public class ParkingManager extends ParkingBoy {
         return seatTotal;
     }
 
-    public Integer getVacancyIncludeBoys() {
-        int vacancy = getVacancy();
+    public Integer getCarTotalIncludeBoys() {
+        int carTotal = getCarTotal();
 
         for (ParkingBoy parkingBoy : parkingBoys) {
-            vacancy = vacancy + parkingBoy.getVacancy();
+            carTotal = carTotal + parkingBoy.getCarTotal();
         }
 
-        return vacancy;
+        return carTotal;
     }
 }

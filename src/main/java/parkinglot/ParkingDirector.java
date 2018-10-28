@@ -12,7 +12,7 @@ public class ParkingDirector {
         }
 
         StringBuffer managerReportString = new StringBuffer("");
-        managerReportString.append("M ").append(parkingManager.getVacancyIncludeBoys()).append(" ").append(parkingManager.getSeatTotalIncludeBoys()).append("\n")
+        managerReportString.append("M ").append(parkingManager.getCarTotalIncludeBoys()).append(" ").append(parkingManager.getSeatTotalIncludeBoys()).append("\n")
                 .append(managerLotReport(parkingManager))
                 .append(boyReportString);
         System.out.println(managerReportString.toString());
@@ -29,22 +29,22 @@ public class ParkingDirector {
 
     private String boyReport(ParkingBoy parkingBoy) {
         int seatTotal = 0;
-        int vacancy = 0;
+        int carTotal = 0;
         StringBuffer lotReportString = new StringBuffer("");
         for (ParkingLot parkingLot : parkingBoy.getParkingLots()) {
             seatTotal = seatTotal + parkingLot.getCapacity();
-            vacancy = vacancy + parkingLot.getVacancy();
+            carTotal = carTotal + parkingLot.getCarTotal();
             lotReportString.append("    ").append(lotReport(parkingLot)).append("\n");
         }
 
         StringBuffer boyReportString = new StringBuffer("");
-        boyReportString.append("B ").append(vacancy).append(" ").append(seatTotal).append("\n")
+        boyReportString.append("B ").append(carTotal).append(" ").append(seatTotal).append("\n")
                 .append(lotReportString);
 
         return boyReportString.toString();
     }
 
     private String lotReport(ParkingLot parkingLot) {
-        return new StringBuffer("P ").append(parkingLot.getVacancy()).append(" ").append(parkingLot.getCapacity()).toString();
+        return new StringBuffer("P ").append(parkingLot.getCarTotal()).append(" ").append(parkingLot.getCapacity()).toString();
     }
 }

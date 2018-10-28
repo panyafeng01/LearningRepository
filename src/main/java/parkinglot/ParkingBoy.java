@@ -21,6 +21,14 @@ public class ParkingBoy {
         return seatTotal;
     }
 
+    public Integer getCarTotal() {
+        int carTotal = 0;
+        for (ParkingLot parkingLot : parkingLots) {
+            carTotal = carTotal + parkingLot.getCarTotal();
+        }
+        return carTotal;
+    }
+
     public Integer getVacancy() {
         int vacancy = 0;
         for (ParkingLot parkingLot : parkingLots) {

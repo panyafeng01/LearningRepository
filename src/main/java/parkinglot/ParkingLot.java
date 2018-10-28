@@ -15,6 +15,10 @@ public class ParkingLot {
         return capacity;
     }
 
+    public int getCarTotal() {
+        return cars.size();
+    }
+
     public Integer getVacancy() {
         return capacity - cars.size();
     }

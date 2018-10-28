@@ -31,20 +31,9 @@ public class ParkingDirectorTest {
         //when
         parkingLot1.park(new Car());
 
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
-        parkingLot2.park(new Car());
-
-        parkingLot3.park(new Car());
         parkingLot3.park(new Car());
         parkingLot3.park(new Car());
 
-        parkingLot4.park(new Car());
-        parkingLot4.park(new Car());
-        parkingLot4.park(new Car());
-        parkingLot4.park(new Car());
-        parkingLot4.park(new Car());
-        parkingLot4.park(new Car());
         parkingLot4.park(new Car());
         parkingLot4.park(new Car());
 
