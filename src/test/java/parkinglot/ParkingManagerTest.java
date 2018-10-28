@@ -17,7 +17,7 @@ public class ParkingManagerTest {
         ParkingLot parkingLot2 = new ParkingLot(1);
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
-        ParkingBoy parkingManager = new ParkingManager(parkingLots, null);
+        ParkingManager parkingManager = new ParkingManager(parkingLots, null);
 
         Car car1 = new Car();
         Car car2 = new Car();

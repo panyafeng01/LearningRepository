@@ -3,7 +3,7 @@ package parkinglot;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class ParkingManager extends ParkingBoy {
+public class ParkingManager extends ParkingLotManager {
     private final ArrayList<ParkingBoy> parkingBoys;
 
     public ParkingManager(ArrayList<ParkingLot> parkingLots, ArrayList<ParkingBoy> parkingBoys) {
@@ -17,30 +17,59 @@ public class ParkingManager extends ParkingBoy {
 
     @Override
     public ParkTicket park(Car car) {
-        if(parkingBoys != null && parkingBoys.size() > 0) {
-            Optional<ParkingBoy> maxVacancyParkingBoy = parkingBoys.stream()
-                    .max((o1, o2) -> o1.getVacancy().compareTo(o2.getVacancy()));
-            int maxVacancyOfParkingBoys = maxVacancyParkingBoy.get().getVacancy();
-            if(maxVacancyOfParkingBoys > this.getVacancy()) {
-                return assignPark(car, maxVacancyParkingBoy.get());
-            }
+        Optional<ParkingBoy> parkingBoy = findMaxVacancyParkingBoy();
+        int vacancyOfParkingBoy = 0;
+        if(parkingBoy.isPresent()) {
+            vacancyOfParkingBoy = parkingBoy.get().getVacancy();
         }
 
-        return super.park(car);
+        if(vacancyOfParkingBoy > this.getVacancy()) {
+            return assignPark(car, parkingBoy.get());
+        } else {
+            return super.park(car);
+        }
+    }
+
+    private Optional<ParkingBoy> findMaxVacancyParkingBoy() {
+        if(parkingBoys != null && parkingBoys.size() > 0) {
+            return parkingBoys.stream()
+                    .max((o1, o2) -> o1.getVacancy().compareTo(o2.getVacancy()));
+        }
+        return Optional.empty();
+    }
+
+    protected ParkingLot findParkingLot() {
+        ParkingLot resultParkingLot = null;
+        for (ParkingLot parkingLot : parkingLots) {
+            Boolean isFull = parkingLot.isFull();
+            if(isFull) {
+                continue;
+            }
+            resultParkingLot = parkingLot;
+            break;
+        }
+
+        return resultParkingLot;
     }
 
     @Override
     public Car pickUp(ParkTicket parkTicket) {
         Car pickUpCar = super.pickUp(parkTicket);
         if(pickUpCar == null) {
-            for (ParkingBoy parkingBoy : parkingBoys) {
-                pickUpCar = parkingBoy.pickUp(parkTicket);
-                if(pickUpCar != null) {
-                    return pickUpCar;
-                }
-            }
+            pickUpCar = pickUpOfParkingBoy(parkTicket);
         }
         return pickUpCar;
+    }
+
+    private Car pickUpOfParkingBoy(ParkTicket parkTicket) {
+        Car pickUpCar;
+        for (ParkingBoy parkingBoy : parkingBoys) {
+            pickUpCar = parkingBoy.pickUp(parkTicket);
+            if(pickUpCar != null) {
+                return pickUpCar;
+            }
+        }
+        return null;
     }
 
     private ParkTicket assignPark(Car car, ParkingBoy parkingBoy) {
