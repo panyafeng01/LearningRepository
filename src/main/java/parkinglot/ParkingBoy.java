@@ -8,16 +8,13 @@ public class ParkingBoy extends ParkingLotManager {
     }
 
     protected ParkingLot findParkingLot() {
-        ParkingLot resultParkingLot = null;
         for (ParkingLot parkingLot : parkingLots) {
-            Boolean isFull = parkingLot.isFull();
-            if(isFull) {
+            if(parkingLot.isFull()) {
                 continue;
             }
-            resultParkingLot = parkingLot;
-            break;
+            return parkingLot;
         }
 
-        return resultParkingLot;
+        return null;
     }
 }
