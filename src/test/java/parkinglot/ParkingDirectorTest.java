@@ -27,6 +27,10 @@ public class ParkingDirectorTest {
         parkingBoys.add(parkingBoy2);
         parkingBoys.add(parkingBoy1);
         ParkingManager parkingManager = new ParkingManager(parkingLots3, parkingBoys);
+        ArrayList<ParkingManager> parkingManagers = new ArrayList<>();
+        parkingManagers.add(parkingManager);
+        ParkingReport parkingReport = new LevelParkingReport();
+        ParkingDirector parkingDirector = new ParkingDirector(parkingManagers, parkingReport);
 
         //when
         parkingLot1.park(new Car());
@@ -38,8 +42,8 @@ public class ParkingDirectorTest {
         parkingLot4.park(new Car());
 
         //then
-        ParkingDirector parkingDirector = new ParkingDirector();
-        String reportString = parkingDirector.parkingReport(parkingManager);
+        String reportString = parkingDirector.generateReport();
+
         StringBuffer str = new StringBuffer();
         str.append("M 5 20").append("\n")
            .append("  P 2 10").append("\n")
